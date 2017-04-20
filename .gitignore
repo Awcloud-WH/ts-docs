@@ -2,5 +2,8 @@ node_modules
 built
 .idea/
 .vscode/
+docs/
+html/
 npm-debug.log
 sftp-config.json
+.DS_Store
