@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "gulp"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-markdown": "^1.2.0",
+    "gulp-markdown-pdf": "^4.0.0",
+    "markdown": "^0.5.0"
+  }
+}

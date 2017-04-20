@@ -1,0 +1,63 @@
+<pre><code class="lang-ts">// Type definitions for [~THE LIBRARY NAME~] [~OPTIONAL VERSION NUMBER~]
+// Project: [~THE PROJECT NAME~]
+// Definitions by: [~YOUR NAME~] &lt;[~A URL FOR YOU~]&gt;
+
+/*~ If this library is callable (e.g. can be invoked as myLib(3)),
+ *~ include those call signatures here.
+ *~ Otherwise, delete this section.
+ */
+declare function myLib(a: string): string;
+declare function myLib(a: number): number;
+
+/*~ If you want the name of this library to be a valid type name,
+ *~ you can do so here.
+ *~
+ *~ For example, this allows us to write &#39;var x: myLib&#39;;
+ *~ Be sure this actually makes sense! If it doesn&#39;t, just
+ *~ delete this declaration and add types inside the namespace below.
+ */
+interface myLib {
+    name: string;
+    length: number;
+    extras?: string[];
+}
+
+/*~ If your library has properties exposed on a global variable,
+ *~ place them here.
+ *~ You should also place types (interfaces and type alias) here.
+ */
+declare namespace myLib {
+    //~ We can write &#39;myLib.timeout = 50;&#39;
+    let timeout: number;
+
+    //~ We can access &#39;myLib.version&#39;, but not change it
+    const version: string;
+
+    //~ There&#39;s some class we can create via &#39;let c = new myLib.Cat(42)&#39;
+    //~ Or reference e.g. &#39;function f(c: myLib.Cat) { ... }
+    class Cat {
+        constructor(n: number);
+
+        //~ We can read &#39;c.age&#39; from a &#39;Cat&#39; instance
+        readonly age: number;
+
+        //~ We can invoke &#39;c.purr()&#39; from a &#39;Cat&#39; instance
+        purr(): void;
+    }
+
+    //~ We can declare a variable as
+    //~   &#39;var s: myLib.CatSettings = { weight: 5, name: &quot;Maru&quot; };&#39;
+    interface CatSettings {
+        weight: number;
+        name: string;
+        tailLength?: number;
+    }
+
+    //~ We can write &#39;const v: myLib.VetID = 42;&#39;
+    //~  or &#39;const v: myLib.VetID = &quot;bob&quot;;&#39;
+    type VetID = string | number;
+
+    //~ We can invoke &#39;myLib.checkCat(c)&#39; or &#39;myLib.checkCat(c, v);&#39;
+    function checkCat(c: Cat, s?: VetID);
+}
+</code></pre>

@@ -1,0 +1,56 @@
+<p>在太平洋标准时间每天午夜会自动构建<a href="https://github.com/Microsoft/TypeScript/tree/master">TypeScript的<code>master</code></a>分支代码并发布到NPM和NuGet上。
+下面将介绍如何获得并在工具里使用它们。</p>
+<h2 id="-npm">使用 npm</h2>
+<pre><code class="lang-shell">npm install -g typescript@next
+</code></pre>
+<h2 id="-nuget-msbuild">使用 NuGet 和 MSBuild</h2>
+<blockquote>
+<p>注意：你需要配置工程来使用NuGet包。
+详细信息参考<a href="https://github.com/Microsoft/TypeScript/wiki/Configuring-MSBuild-projects-to-use-NuGet">配置MSBuild工程来使用NuGet</a>。</p>
+</blockquote>
+<p><a href="https://www.myget.org/gallery/typescript-preview">www.myget.org</a>。</p>
+<p>有两个包：</p>
+<ul>
+<li><code>Microsoft.TypeScript.Compiler</code>: 仅包含工具 (<code>tsc.exe</code>，<code>lib.d.ts</code>，等。) 。</li>
+<li><code>Microsoft.TypeScript.MSBuild</code>: 和上面一样的工具，还有MSBuild的任务和目标(<code>Microsoft.TypeScript.targets</code>，<code>Microsoft.TypeScript.Default.props</code>，等。)</li>
+</ul>
+<h2 id="-ide-">更新IDE来使用每日构建</h2>
+<p>你还可以配置IDE来使用每日构建。
+首先你要通过npm安装包。
+你可以进行全局安装或者安装到本地的<code>node_modules</code>目录下。</p>
+<p>下面的步骤里我们假设你已经安装好了<code>typescript@next</code>。</p>
+<h3 id="visual-studio-code">Visual Studio Code</h3>
+<p>更新<code>.vscode/settings.json</code>如下：</p>
+<pre><code class="lang-json">&quot;typescript.tsdk&quot;: &quot;&lt;path to your folder&gt;/node_modules/typescript/lib&quot;
+</code></pre>
+<p>详细信息参见<a href="https://code.visualstudio.com/Docs/languages/typescript#_using-newer-typescript-versions">VSCode文档</a>。</p>
+<h3 id="sublime-text">Sublime Text</h3>
+<p>更新<code>Settings - User</code>如下：</p>
+<pre><code class="lang-json">&quot;typescript_tsdk&quot;: &quot;&lt;path to your folder&gt;/node_modules/typescript/lib&quot;
+</code></pre>
+<p>详细信息参见<a href="https://github.com/Microsoft/TypeScript-Sublime-Plugin#installation">如何在Sublime Text里安装TypeScript插件</a>。</p>
+<h3 id="visual-studio-2013-and-2015">Visual Studio 2013 and 2015</h3>
+<blockquote>
+<p>注意：大多数的改变不需要你安装新版本的VS TypeScript插件。</p>
+</blockquote>
+<p>当前的每日构建不包含完整的插件安装包，但是我们正在试着提供每日构建的安装包。</p>
+<ol>
+<li><p>下载<a href="https://github.com/Microsoft/TypeScript/blob/master/scripts/VSDevMode.ps1">VSDevMode.ps1</a>脚本。</p>
+<blockquote>
+<p>参考wiki文档：<a href="https://github.com/Microsoft/TypeScript/wiki/Dev-Mode-in-Visual-Studio#using-a-custom-language-service-file">使用自定义语言服务文件</a>。</p>
+</blockquote>
+</li>
+<li><p>在PowerShell命令行窗口里执行：</p>
+<p>VS 2015：</p>
+<pre><code class="lang-posh">VSDevMode.ps1 14 -tsScript &lt;path to your folder&gt;/node_modules/typescript/lib
+</code></pre>
+<p>VS 2013：</p>
+<pre><code class="lang-posh">VSDevMode.ps1 12 -tsScript &lt;path to your folder&gt;/node_modules/typescript/lib
+</code></pre>
+</li>
+</ol>
+<h3 id="intellij-idea-mac-">IntelliJ IDEA (Mac)</h3>
+<p>前往<code>Preferences</code> &gt; <code>Languages &amp; Frameworks</code> &gt; <code>TypeScript</code>：</p>
+<blockquote>
+<p>TypeScript Version: 如果通过NPM安装：<code>/usr/local/lib/node_modules/typescript/lib</code></p>
+</blockquote>

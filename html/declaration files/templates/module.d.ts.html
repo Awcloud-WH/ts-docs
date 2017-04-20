@@ -1,0 +1,45 @@
+<pre><code class="lang-ts">// Type definitions for [~THE LIBRARY NAME~] [~OPTIONAL VERSION NUMBER~]
+// Project: [~THE PROJECT NAME~]
+// Definitions by: [~YOUR NAME~] &lt;[~A URL FOR YOU~]&gt;
+
+/*~ This is the module template file. You should rename it to index.d.ts
+ *~ and place it in a folder with the same name as the module.
+ *~ For example, if you were writing a file for &quot;super-greeter&quot;, this
+ *~ file should be &#39;super-greeter/index.d.ts&#39;
+ */
+
+/*~ If this module is a UMD module that exposes a global variable &#39;myLib&#39; when
+ *~ loaded outside a module loader environment, declare that global here.
+ *~ Otherwise, delete this declaration.
+ */
+export as namespace myLib;
+
+/*~ If this module has methods, declare them as functions like so.
+ */
+export function myMethod(a: string): string;
+export function myOtherMethod(a: number): number;
+
+/*~ You can declare types that are available via importing the module */
+export interface someType {
+    name: string;
+    length: number;
+    extras?: string[];
+}
+
+/*~ You can declare properties of the module using const, let, or var */
+export const myField: number;
+
+/*~ If there are types, properties, or methods inside dotted names
+ *~ of the module, declare them inside a &#39;namespace&#39;.
+ */
+export namespace subProp {
+    /*~ For example, given this definition, someone could write:
+     *~   import { subProp } from &#39;yourModule&#39;;
+     *~   subProp.foo();
+     *~ or
+     *~   import * as yourMod from &#39;yourModule&#39;;
+     *~   yourMod.subProp.foo();
+     */
+    export function foo(): void;
+}
+</code></pre>

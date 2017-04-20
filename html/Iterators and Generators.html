@@ -1,0 +1,58 @@
+<h1 id="-">可迭代性</h1>
+<p>当一个对象实现了<a href="Symbols.md#symboliterator"><code>Symbol.iterator</code></a>属性时，我们认为它是可迭代的。
+一些内置的类型如<code>Array</code>，<code>Map</code>，<code>Set</code>，<code>String</code>，<code>Int32Array</code>，<code>Uint32Array</code>等都已经实现了各自的<code>Symbol.iterator</code>。
+对象上的<code>Symbol.iterator</code>函数负责返回供迭代的值。</p>
+<h2 id="-for-of-"><code>for..of</code> 语句</h2>
+<p><code>for..of</code>会遍历可迭代的对象，调用对象上的<code>Symbol.iterator</code>方法。
+下面是在数组上使用<code>for..of</code>的简单例子：</p>
+<pre><code class="lang-ts">let someArray = [1, &quot;string&quot;, false];
+
+for (let entry of someArray) {
+    console.log(entry); // 1, &quot;string&quot;, false
+}
+</code></pre>
+<h3 id="-for-of-vs-for-in-"><code>for..of</code> vs. <code>for..in</code> 语句</h3>
+<p><code>for..of</code>和<code>for..in</code>均可迭代一个列表；但是用于迭代的值却不同，<code>for..in</code>迭代的是对象的 <em>键</em> 的列表，而<code>for..of</code>则迭代对象的键对应的值。</p>
+<p>下面的例子展示了两者之间的区别：</p>
+<pre><code class="lang-ts">let list = [4, 5, 6];
+
+for (let i in list) {
+    console.log(i); // &quot;0&quot;, &quot;1&quot;, &quot;2&quot;,
+}
+
+for (let i of list) {
+    console.log(i); // &quot;4&quot;, &quot;5&quot;, &quot;6&quot;
+}
+</code></pre>
+<p>另一个区别是<code>for..in</code>可以操作任何对象；它提供了查看对象属性的一种方法。
+但是<code>for..of</code>关注于迭代对象的值。内置对象<code>Map</code>和<code>Set</code>已经实现了<code>Symbol.iterator</code>方法，让我们可以访问它们保存的值。</p>
+<pre><code class="lang-ts">let pets = new Set([&quot;Cat&quot;, &quot;Dog&quot;, &quot;Hamster&quot;]);
+pets[&quot;species&quot;] = &quot;mammals&quot;;
+
+for (let pet in pets) {
+    console.log(pet); // &quot;species&quot;
+}
+
+for (let pet of pets) {
+    console.log(pet); // &quot;Cat&quot;, &quot;Dog&quot;, &quot;Hamster&quot;
+}
+</code></pre>
+<h3 id="-">代码生成</h3>
+<h4 id="-es5-es3">目标为 ES5 和 ES3</h4>
+<p>当生成目标为ES5或ES3，迭代器只允许在<code>Array</code>类型上使用。
+在非数组值上使用<code>for..of</code>语句会得到一个错误，就算这些非数组值已经实现了<code>Symbol.iterator</code>属性。</p>
+<p>编译器会生成一个简单的<code>for</code>循环做为<code>for..of</code>循环，比如：</p>
+<pre><code class="lang-ts">let numbers = [1, 2, 3];
+for (let num of numbers) {
+    console.log(num);
+}
+</code></pre>
+<p>生成的代码为：</p>
+<pre><code class="lang-js">var numbers = [1, 2, 3];
+for (var _i = 0; _i &lt; numbers.length; _i++) {
+    var num = numbers[_i];
+    console.log(num);
+}
+</code></pre>
+<h4 id="-ecmascript-2015-">目标为 ECMAScript 2015 或更高</h4>
+<p>当目标为兼容ECMAScipt 2015的引擎时，编译器会生成相应引擎的<code>for..of</code>内置迭代器实现方式。</p>
